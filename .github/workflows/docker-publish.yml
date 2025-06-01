@@ -4,10 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - '.github/workflows/docker-publish.yml'
-      - Dockerfile
-      - '**/*.java'
 
 jobs:
   build-and-push:
