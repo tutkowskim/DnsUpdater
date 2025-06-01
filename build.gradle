@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'com.tutkowski.dns.updater'
+
+repositories {
+    mavenCentral()
+}
+
+application {
+    mainClass = 'com.tutkowski.dns.updater.Main'
+}
+
+dependencies {
+    implementation 'com.google.inject:guice:5.1.0'
+    implementation 'software.amazon.awssdk:route53:2.31.54'
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
