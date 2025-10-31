@@ -16,7 +16,7 @@ application {
 dependencies {
     implementation 'com.google.inject:guice:7.0.0'
     implementation 'software.amazon.awssdk:route53:2.31.68'
-    testImplementation platform('org.junit:junit-bom:5.13.1')
+    testImplementation platform('org.junit:junit-bom:5.14.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
 
