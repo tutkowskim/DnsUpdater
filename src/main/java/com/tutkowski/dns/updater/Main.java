@@ -6,6 +6,9 @@ import com.google.inject.Key;
 import com.google.inject.TypeLiteral;
 import com.tutkowski.dns.updater.http.Server;
 import com.tutkowski.dns.updater.tasks.ITask;
+import io.sentry.Sentry;
+import io.sentry.SentryLevel;
+import io.sentry.SentryOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +22,10 @@ public class Main {
     public static void main(String[] args) {
         try {
             Injector injector = Guice.createInjector(new AppModule());
+            
+            Config config = injector.getInstance(Config.class);
+            configureSentry(config);
+
             Server server = injector.getInstance(Server.class);
             server.start();
             logger.info("HTTP server started");
@@ -38,6 +45,21 @@ public class Main {
             }
         } catch (Exception e) {
             logger.error("Fatal error during startup", e);
+            Sentry.captureException(e);
         }
+    }
+
+    private static void configureSentry(Config config) {
+        if (config.SENTRY_DSN == null || config.SENTRY_DSN.isBlank()) {
+            logger.info("Sentry disabled (missing SENTRY_DSN)");
+            return;
+        }
+
+        Sentry.init(options -> {
+            options.setDsn(config.SENTRY_DSN);
+            options.setTracesSampleRate(1.0);
+            options.setDiagnosticLevel(SentryLevel.INFO);
+        });
+        logger.info("Sentry enabled");
     }
 }

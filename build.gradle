@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id "io.sentry.jvm.gradle" version "5.12.2"
 }
 
 group = 'com.tutkowski.dns.updater'
@@ -13,6 +14,14 @@ application {
     mainClass = 'com.tutkowski.dns.updater.Main'
 }
 
+String sentryToken = System.getenv("SENTRY_AUTH_TOKEN")
+sentry {
+    includeSourceContext = sentryToken != null // Disable for local build
+    org = "tutkowski"
+    projectName = "DnsUpdater"
+    authToken = sentryToken
+}
+
 dependencies {
     implementation 'com.google.inject:guice:7.0.0'
     implementation 'software.amazon.awssdk:route53:2.40.14'
@@ -20,6 +29,8 @@ dependencies {
     implementation 'org.apache.logging.log4j:log4j-api:2.24.3'
     implementation 'org.apache.logging.log4j:log4j-core:2.24.3'
     implementation 'org.apache.logging.log4j:log4j-slf4j2-impl:2.24.3'
+    implementation 'io.sentry:sentry:7.13.0'
+    implementation 'io.sentry:sentry-log4j2:7.13.0'
     testImplementation platform('org.junit:junit-bom:6.0.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }

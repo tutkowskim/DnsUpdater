@@ -3,6 +3,9 @@ package com.tutkowski.dns.updater.tasks;
 import com.google.inject.Inject;
 import com.tutkowski.dns.updater.Config;
 import com.tutkowski.dns.updater.clients.ipcheck.IpCheck;
+import io.sentry.ITransaction;
+import io.sentry.Sentry;
+import io.sentry.SpanStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.services.route53.Route53Client;
@@ -39,6 +42,8 @@ public class UpdateTask implements ITask {
 
     @Override
     public void run() {
+        ITransaction transaction = Sentry.startTransaction("update-task", "scheduled");
+        Sentry.configureScope(scope -> scope.setTransaction(transaction));
         try {
             logger.info("Fetching current public IP");
             String ipAddress = this.ipCheck.getCurrentIp();
@@ -74,8 +79,13 @@ public class UpdateTask implements ITask {
                 logger.error("Failed to update DNS entry", e);
                 throw e;
             }
+            transaction.setStatus(SpanStatus.OK);
         } catch (Exception e) {
             logger.error("Update task failed", e);
+            transaction.setThrowable(e);
+            transaction.setStatus(SpanStatus.INTERNAL_ERROR);
+        } finally {
+            transaction.finish();
         }
     }
 }
