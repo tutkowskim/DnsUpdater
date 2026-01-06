@@ -4,7 +4,7 @@
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX} %-5level %c{1.} - %msg%n"/>
         </Console>
-        <Sentry  name="Sentry" dsn="${env:SENTRY_DSN:-}" minimumBreadcrumbLevel="DEBUG" minimumEventLevel="DEBUG" minimumLevel="DEBUG" />
+        <Sentry  name="Sentry" dsn="${env:SENTRY_DSN:-}" minimumBreadcrumbLevel="DEBUG" minimumEventLevel="WARN" minimumLevel="DEBUG" />
     </Appenders>
     <Loggers>
         <Root level="INFO">
