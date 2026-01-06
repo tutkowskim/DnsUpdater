@@ -58,7 +58,7 @@ public class Main {
         Sentry.init(options -> {
             options.setDsn(config.SENTRY_DSN);
             options.setTracesSampleRate(1.0);
-            options.setDiagnosticLevel(SentryLevel.INFO);
+            options.getLogs().setEnabled(true);
         });
         logger.info("Sentry enabled");
     }
