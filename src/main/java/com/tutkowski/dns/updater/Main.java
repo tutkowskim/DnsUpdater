@@ -7,8 +7,6 @@ import com.google.inject.TypeLiteral;
 import com.tutkowski.dns.updater.http.Server;
 import com.tutkowski.dns.updater.tasks.ITask;
 import io.sentry.Sentry;
-import io.sentry.SentryLevel;
-import io.sentry.SentryOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
