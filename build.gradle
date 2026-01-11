@@ -6,19 +6,12 @@ plugins {
 
 group = 'com.tutkowski.dns.updater'
 
-configurations {
-    sentryAgent
-}
-
 repositories {
     mavenCentral()
 }
 
 application {
     mainClass = 'com.tutkowski.dns.updater.Main'
-    applicationDefaultJvmArgs = [
-        "-javaagent:${configurations.sentryAgent.singleFile}"
-    ]
 }
 
 String sentryToken = System.getenv("SENTRY_AUTH_TOKEN")
@@ -38,7 +31,6 @@ dependencies {
     implementation 'org.apache.logging.log4j:log4j-slf4j2-impl:2.24.3'
     implementation 'io.sentry:sentry:8.16.0'
     implementation 'io.sentry:sentry-log4j2:8.16.0'
-    sentryAgent 'io.sentry:sentry-opentelemetry-agent:8.16.0'
     testImplementation platform('org.junit:junit-bom:6.0.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
