@@ -14,13 +14,6 @@ repositories {
     mavenCentral()
 }
 
-application {
-    mainClass = 'com.tutkowski.dns.updater.Main'
-    applicationDefaultJvmArgs = [
-        '-javaagent:$APP_HOME/sentry/' + configurations.sentryAgent.singleFile.name
-    ]
-}
-
 String sentryToken = System.getenv("SENTRY_AUTH_TOKEN")
 sentry {
     includeSourceContext = sentryToken != null // Disable for local build
@@ -41,6 +34,13 @@ dependencies {
     sentryAgent 'io.sentry:sentry-opentelemetry-agent:8.16.0'
     testImplementation platform('org.junit:junit-bom:6.0.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+application {
+    mainClass = 'com.tutkowski.dns.updater.Main'
+    applicationDefaultJvmArgs = [
+        '-javaagent:$APP_HOME/sentry/' + configurations.sentryAgent.singleFile.name
+    ]
 }
 
 test {
