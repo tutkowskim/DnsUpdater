@@ -17,7 +17,7 @@ repositories {
 application {
     mainClass = 'com.tutkowski.dns.updater.Main'
     applicationDefaultJvmArgs = [
-        '-javaagent:$APP_HOME/sentry/' + configurations.sentryAgent.singleFile.name
+        "-javaagent:${configurations.sentryAgent.singleFile}"
     ]
 }
 
@@ -45,14 +45,4 @@ dependencies {
 
 test {
     useJUnitPlatform()
-}
-
-distributions {
-    main {
-        contents {
-            from(configurations.sentryAgent) {
-                into 'sentry'
-            }
-        }
-    }
 }
