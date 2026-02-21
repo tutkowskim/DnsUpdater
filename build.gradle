@@ -24,7 +24,7 @@ sentry {
 
 dependencies {
     implementation 'com.google.inject:guice:7.0.0'
-    implementation 'software.amazon.awssdk:route53:2.40.14'
+    implementation 'software.amazon.awssdk:route53:2.41.34'
     implementation 'org.slf4j:slf4j-api:2.0.13'
     implementation 'org.apache.logging.log4j:log4j-api:2.24.3'
     implementation 'org.apache.logging.log4j:log4j-core:2.24.3'
