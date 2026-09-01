@@ -1,6 +1,6 @@
 FROM ghcr.io/astral-sh/uv:0.9.13 AS uv
 
-FROM python:3.13-slim AS build
+FROM python:3.14-slim AS build
 WORKDIR /app
 ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy
 COPY --from=uv /uv /uvx /bin/
@@ -8,7 +8,7 @@ COPY pyproject.toml uv.lock README.md ./
 COPY src ./src
 RUN uv sync --locked --no-dev --no-editable
 
-FROM python:3.13-slim AS runtime
+FROM python:3.14-slim AS runtime
 WORKDIR /app
 ENV PATH="/app/.venv/bin:$PATH" \
     PYTHONUNBUFFERED=1 \
