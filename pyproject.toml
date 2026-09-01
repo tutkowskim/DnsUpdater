@@ -46,4 +46,4 @@ line-length = 100
 select = ["B", "E", "F", "I", "SIM", "UP"]
 
 [tool.uv]
-required-version = ">=0.9.13,<0.10"
+required-version = ">=0.9.13,<0.13"
