@@ -1,0 +1,49 @@
+[project]
+name = "dns-updater"
+version = "0.1.0"
+description = "Keep a Route 53 A record synchronized with the current public IPv4 address."
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "boto3>=1.42,<2",
+    "httpx>=0.28,<1",
+    "sentry-sdk>=2.48,<3",
+]
+
+[project.scripts]
+dns-updater = "dns_updater.__main__:run"
+
+[dependency-groups]
+dev = [
+    "boto3-stubs[route53]>=1.42,<2",
+    "mypy>=1.19,<2",
+    "pytest>=9,<10",
+    "pytest-cov>=7,<8",
+    "ruff>=0.14,<1",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/dns_updater"]
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+files = ["src", "tests"]
+
+[tool.pytest.ini_options]
+addopts = "--cov=dns_updater --cov-report=term-missing --cov-fail-under=90"
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["B", "E", "F", "I", "SIM", "UP"]
+
+[tool.uv]
+required-version = ">=0.9.13,<0.10"
