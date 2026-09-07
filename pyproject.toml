@@ -16,7 +16,7 @@ dns-updater = "dns_updater.__main__:run"
 [dependency-groups]
 dev = [
     "boto3-stubs[route53]>=1.42,<2",
-    "mypy>=1.19,<2",
+    "mypy>=2.3,<3",
     "pytest>=9,<10",
     "pytest-cov>=7,<8",
     "ruff>=0.14,<1",
